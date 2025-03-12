@@ -1,8 +1,9 @@
 import React, { useRef, useState } from "react"
-import { Box, HStack, Button } from "@chakra-ui/react"
+import { Box, HStack, Button, Text, VStack } from "@chakra-ui/react"
 import { Editor } from "@monaco-editor/react"
 import LanguageSelector from "./LanguageSelector";
 import Output from "./Output";
+import { DEFAULT_CODE } from "./constants";
 
 function CodeEditor() {
     const editorRef = useRef(null);
@@ -18,21 +19,25 @@ function CodeEditor() {
         setLanguage(language)
     }
 
-    
+    function setDefaultCode(language) {
+        setValue(DEFAULT_CODE[language]);
+    }
 
     return (
         <Box>
             <HStack borderSpacing={4}>
-                <Box w='50%'>
-                    <LanguageSelector language={language} onSelect={onSelect}></LanguageSelector>
-                    <Editor height="75vh"
-                        theme="vs-dark"
-                        language={language}
-                        value={value}
-                        defaultValue={"console.log(\"Hello World\");"}
-                        onChange={(val) => setValue(val ?? "")}
-                        onMount={onMount}
-                    />
+                <Box w='70%'>
+                    <LanguageSelector language={language} onSelect={onSelect} setDefaultCode={setDefaultCode}></LanguageSelector>
+                    <Box border='2px solid' p={2} bg='#1e1e1e' borderRadius={4} borderColor='#1e1e1e'>
+                        <Editor height="73vh"
+                            theme="vs-dark"
+                            language={language}
+                            value={value}
+                            defaultValue={"console.log(\"Hello World\");"}
+                            onChange={(val) => setValue(val ?? "")}
+                            onMount={onMount}
+                        />
+                    </Box>
                 </Box>
 
                 <Output editorRef={editorRef} language={language}></Output>

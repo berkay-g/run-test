@@ -9,7 +9,7 @@ import {
 import { LANGUAGE_VERSIONS } from './constants'
 
 
-const LanguageSelector = ({ language, onSelect }) => {
+const LanguageSelector = ({ language, onSelect, setDefaultCode }) => {
 
     const languages = Object.entries(LANGUAGE_VERSIONS);
 
@@ -40,6 +40,7 @@ const LanguageSelector = ({ language, onSelect }) => {
                     }
                 </MenuContent>
             </MenuRoot>
+            <Button ml={3} size='sm' variant='outline' colorPalette='teal' onClick={() => { setDefaultCode(language) }}>Reset Code</Button>
         </Box>
     )
 }
