@@ -36,6 +36,25 @@ function CodeEditor() {
                             defaultValue={"console.log(\"Hello World\");"}
                             onChange={(val) => setValue(val ?? "")}
                             onMount={onMount}
+                            options=
+                            {
+                                {
+                                    fontSize: 16,
+                                    minimap: {
+                                        enabled: false
+                                    },
+                                    scrollbar: {
+                                        vertical: 'hidden'
+                                    },
+                                    overviewRulerBorder: false,
+                                    overviewRulerLanes: 0,
+                                    hideCursorInOverviewRuler: true,
+                                    stickyScroll: {
+                                        enabled: false
+                                    },
+                                    scrollBeyondLastLine: false
+                                }
+                            }
                         />
                     </Box>
                 </Box>
