@@ -9,8 +9,8 @@ export const LANGUAGE_VERSIONS = {
 }
 
 export const DEFAULT_CODE = {
-    javascript: "console.log(\"Hello JS\\n\");",
-    typescript: "var hello: string = \"Hello TS\\n\";\nconsole.log(hello);",
+    javascript: "console.log(\"Hello JS\");",
+    typescript: "var hello: string = \"Hello TS\";\nconsole.log(hello);",
     c: "#include <stdio.h>\n\nint main() {\n    printf(\"Hello C\\n\");\n}",
     cpp: "#include <iostream>\n\nint main() {\n    std::cout << \"Hello C++\" << std::endl;\n}",
     python: "print(\"Hello Python\")",

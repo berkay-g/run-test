@@ -9,6 +9,7 @@ function CodeEditor() {
     const editorRef = useRef(null);
     const [value, setValue] = useState('');
     const [language, setLanguage] = useState('javascript');
+    const [fontSize, setFontSize] = useState(16);
 
     const onMount = (editor) => {
         editorRef.current = editor;
@@ -27,7 +28,7 @@ function CodeEditor() {
         <Box>
             <HStack borderSpacing={4}>
                 <Box w='70%'>
-                    <LanguageSelector language={language} onSelect={onSelect} setDefaultCode={setDefaultCode}></LanguageSelector>
+                    <LanguageSelector language={language} onSelect={onSelect} setDefaultCode={setDefaultCode} fontSize={fontSize} setFontSize={setFontSize}></LanguageSelector>
                     <Box border='2px solid' p={2} bg='#1e1e1e' borderRadius={4} borderColor='#1e1e1e'>
                         <Editor height="73vh"
                             theme="vs-dark"
@@ -39,7 +40,7 @@ function CodeEditor() {
                             options=
                             {
                                 {
-                                    fontSize: 16,
+                                    fontSize: fontSize,
                                     minimap: {
                                         enabled: false
                                     },
