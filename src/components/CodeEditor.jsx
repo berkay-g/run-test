@@ -10,6 +10,7 @@ function CodeEditor() {
     const [value, setValue] = useState('');
     const [language, setLanguage] = useState('javascript');
     const [fontSize, setFontSize] = useState(16);
+    const [wordWrap, setWordWrap] = useState(true)
 
     const onMount = (editor) => {
         editorRef.current = editor;
@@ -22,13 +23,14 @@ function CodeEditor() {
 
     function setDefaultCode(language) {
         setValue(DEFAULT_CODE[language]);
+        console.log(wordWrap)
     }
 
     return (
         <Box>
             <HStack borderSpacing={4}>
                 <Box w='70%'>
-                    <LanguageSelector language={language} onSelect={onSelect} setDefaultCode={setDefaultCode} fontSize={fontSize} setFontSize={setFontSize}></LanguageSelector>
+                    <LanguageSelector language={language} onSelect={onSelect} setDefaultCode={setDefaultCode} fontSize={fontSize} setFontSize={setFontSize} wordWrap={wordWrap} setWordWrap={setWordWrap}></LanguageSelector>
                     <Box border='2px solid' p={2} bg='#1e1e1e' borderRadius={4} borderColor='#1e1e1e'>
                         <Editor height="73vh"
                             theme="vs-dark"
@@ -53,7 +55,8 @@ function CodeEditor() {
                                     stickyScroll: {
                                         enabled: false
                                     },
-                                    scrollBeyondLastLine: false
+                                    scrollBeyondLastLine: false,
+                                    wordWrap: wordWrap
                                 }
                             }
                         />
