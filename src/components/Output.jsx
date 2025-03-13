@@ -9,6 +9,7 @@ const Output = ({ editorRef, language }) => {
     const [isLoading, setIsLoading] = useState(false)
     const [isError, setIsError] = useState(false)
     const [inputValue, setInputValue] = useState('');
+    const [defaultOutputText, setDefaultOutputText] = useState("Click \"Run Code\"")
 
     const runCode = async () => {
         const sourceCode = editorRef.current.getValue();
@@ -18,10 +19,11 @@ const Output = ({ editorRef, language }) => {
             setIsLoading(true);
             const { run: result } = await executeCode(language, sourceCode, inputValue);
             result.stderr ? setIsError(true) : setIsError(false)
-            setOutput(result.output.split('\n'))
+
+            setOutput(result.output)
             if (result.code != 0) {
                 setIsError(true);
-                setOutput(o => ["ERROR: Some limit exceeded", ...o]);
+                setOutput(o => "ERROR: Some limit exceeded\n" + o);
             }
         } catch (error) {
             console.log(error);
@@ -31,6 +33,7 @@ const Output = ({ editorRef, language }) => {
             })
         } finally {
             setIsLoading(false)
+            setDefaultOutputText("No Output")
         }
     };
 
@@ -52,6 +55,7 @@ const Output = ({ editorRef, language }) => {
                         variant="subtle"
                         border="1px solid"
                         onChange={(e) => setInputValue(e.target.value)}
+                        value={inputValue}
                     />
                 </Box>
 
@@ -71,10 +75,9 @@ const Output = ({ editorRef, language }) => {
                 overflowX="auto"
                 textWrap="pretty"
             >
-                <Text>
-
+                <Text whiteSpace='pre-wrap' color={isError ? "red.300" : !output ? 'gray.500' : 'white'}>
                     {
-                        output ? output.map((line, index) => <Text key={index} color={isError ? "red.300" : 'white'}>{line}</Text>) : "Click \"Run Code\""
+                        output ? output : defaultOutputText
                     }
                 </Text>
             </Box>
